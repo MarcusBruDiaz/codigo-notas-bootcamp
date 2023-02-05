@@ -1,6 +1,65 @@
-# Getting Started with Create React App
+# El controlador de eventos es una función
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Definimos los controladores de eventos para nuestros botones donde declaramos sus atributos onClick:
+
+
+<button onClick={() => setCounter(counter + 1)}>
+  plus
+</button>
+
+¿Qué pasaría si intentáramos definir los controladores de eventos de una forma más simple?
+
+<button onClick={setCounter(counter + 1)}> 
+  plus
+</button>
+
+Mira que se pasa la funcion setCounter directamente sin pasarla dentro de una funcion flecha; Esto rompería completamente nuestra aplicación.
+
+¿Qué está pasando? Se supone que un controlador de eventos es una función o una referencia de función, y cuando escribimos:
+
+<button onClick={setCounter(counter + 1)}>
+
+
+el controlador de eventos es en realidad una llamada a función. En muchas situaciones esto está bien, pero no en esta situación particular. Al principio, el valor de la variable counter es 0. Cuando React renderiza el componente por primera vez, ejecuta la llamada de función setCounter(0 + 1) y cambia el valor del estado del componente en 1. Esto hará que el componente se vuelva a renderizar, react ejecutará la llamada a la función setCounter nuevamente, y el estado cambiará dando lugar a otra repetición...
+
+Definamos los controladores de eventos como lo hicimos antes
+
+<button onClick={() => setCounter(counter + 1)}> 
+  plus
+</button>
+
+Ahora el atributo del botón que define lo que sucede cuando se hace clic en el botón - onClick - tiene el valor () => setCounter (counter + 1). La función setCounter se llama solo cuando un usuario hace clic en el botón.
+
+Por lo general, definir controladores de eventos dentro de las plantillas JSX no es una buena idea. Aquí está bien, porque nuestros controladores de eventos son muy simples.
+
+Vamos a separar a los controladores de eventos en funciones separadas de todas formas:
+
+const App = () => {
+  const [ counter, setCounter ] = useState(0)
+
+  const increaseByOne = () => setCounter(counter + 1)
+  
+  const setToZero = () => setCounter(0)
+
+  return (
+    <div>
+      <div>{counter}</div>
+      <button onClick={increaseByOne}>
+        plus
+      </button>
+      <button onClick={setToZero}>
+        zero
+      </button>
+    </div>
+  )
+}
+
+
+Aquí los controladores de eventos se han definido correctamente. El valor del atributo onClick es una variable que contiene una referencia a una función:
+
+<button onClick={increaseByOne}> 
+  plus
+</button>
 
 ## Available Scripts
 
