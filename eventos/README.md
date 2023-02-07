@@ -61,17 +61,102 @@ Aquí los controladores de eventos se han definido correctamente. El valor del a
   plus
 </button>
 
-## Available Scripts
+## Pasando el estado a componentes hijos
 
-In the project directory, you can run:
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+
+### Estado complejo
+
+
+En nuestro ejemplo anterior el estado de la aplicación era simple ya que estaba compuesto por un solo entero. ¿Y si nuestra aplicación requiere un estado más complejo?
+
+En la mayoría de los casos, la manera más fácil y mejor de lograr esto es usando la función useState varias veces para crear "partes" de estado separadas.
+
+En el siguiente código creamos dos partes de estado para la aplicación llamada left y right que obtienen el valor inicial de 0:
+
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom'
+
+
+
+
+
+/**
+ * 
+const App = () => {
+    const [left, setLeft] = useState(0)
+    const [right, setRight] = useState(0)
+  
+    return (
+      <div>
+        {left}
+        <button onClick={() => setLeft(left + 1)}>
+          left
+        </button>
+        <button onClick={() => setRight(right + 1)}>
+          right
+        </button>
+        {right}
+      </div>
+    )
+}
+ * 
+ */
+
+
+
+//El estado del componente o una parte de su estado puede ser de cualquier tipo. Podríamos implementar la misma funcionalidad guardando el recuento de clics de los botones left y right en un solo objeto:
+
+
+const App =() =>{
+    const [clicks, setClicks] = useState({
+        left:0,
+        right:0
+    })
+
+
+    const handleLefClick = ()=>{
+
+        setClicks({
+            ...clicks,
+            left: clicks.left +1})
+    }
+
+    const handleRightClick=()=>{
+
+        setClicks({
+            ...clicks,
+            right: clicks.right +1})
+    }
+
+    return(
+        <>
+            {clicks.left}
+            <button onClick={handleLefClick}>left</button>
+            <button onClick={handleRightClick}>right</button>
+            {clicks.right}
+        </>
+    )
+}
+
+ReactDOM.render(<App />, document.getElementById('root'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### `npm test`
 

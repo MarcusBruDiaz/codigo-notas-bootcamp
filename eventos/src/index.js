@@ -1,35 +1,25 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
-
-
-/**El controlador de eventos es una función
-Definimos los controladores de eventos para nuestros botones donde declaramos sus atributos onClick:
-
-<button onClick={() => setCounter(counter + 1)}>
-  plus
-</button>
-*/
+import {createRoot} from 'react'
 
 
 const App = () => {
-  const [ counter, setCounter ] = useState(0)
-
- /**const handleClick = () => {
-    setCounter(counter+1) esto tambien se puede definir directamente en el atributo del boton
-  } */ 
-
-  return (
-    <div>
-      <div>{counter}</div>
-      <button onClick={()=>setCounter(counter+1)}>
-        plus
-      </button>
-      <button onClick={()=> setCounter(0)}>
-        zero
-      </button>
-    </div>
-  )
+    const [value, setValue] = useState(10)
+  
+    const reset = ()=>{
+        setValue(0)
+    }
+    return (
+      <div>
+        {value}
+        <button onClick={reset}>reset to zero</button>
+      </div>
+    )
 }
+  
 
+/*const container= document.getElementById('root')
+const root= createRoot(container)
+root.render(<App tab="home"/>)*/
 
 ReactDOM.render(<App />, document.getElementById('root'))
